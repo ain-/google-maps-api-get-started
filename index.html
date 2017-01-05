@@ -27,6 +27,7 @@
 				addButtons(map);
 
 				drawMarkers(map);
+				drawPolyline(map);
 			}
 
 			function addButtons(map) {
@@ -60,6 +61,24 @@
 					map: map,
 					title: "test2"
 				});
+			}
+
+			function drawPolyline(map) {
+				var pathCoordinates = [
+					new google.maps.LatLng(52.343808, -3.049318),
+					new google.maps.LatLng(52.343888, -3.049468),
+					new google.maps.LatLng(52.345945, -3.051903)
+				];
+
+				var pathToCenter = new google.maps.Polyline({
+					path: pathCoordinates,
+					geodesic: false,
+					strokeColor: '#0000FF',
+					strokeOpacity: 1.0,
+					strokeWeight: 2
+				});
+
+				pathToCenter.setMap(map);
 			}
 
 			google.maps.event.addDomListener(window, "load", initialize);
