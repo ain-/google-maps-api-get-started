@@ -24,7 +24,13 @@
 					overviewMapControl: true
 				};
 				var map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
+
+				var initialCenter = map.center;
+				var initialZoom = map.zoom;
+
 				addButtons(map);
+
+				addGoToInitialExtent(map, initialCenter, initialZoom);
 
 				drawMarkers(map);
 				drawPolyline(map);
@@ -135,6 +141,14 @@
 					strokeWeight: 2
 				});
 				circle.setRadius(58.222737);
+			}
+
+			function addGoToInitialExtent(map, initialCenter, initialZoom) {
+				google.maps.event.addListener(map, 'rightclick',
+					function() {
+						map.setCenter(initialCenter);
+						map.setZoom(initialZoom);
+					});
 			}
 
 			google.maps.event.addDomListener(window, "load", initialize);
