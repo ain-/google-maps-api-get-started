@@ -64,6 +64,16 @@
 					title: "test1"
 				});
 
+				var contentString = '<div id = "test">test</div>';
+
+				var infoWindow = new google.maps.InfoWindow({
+					content: contentString
+				});
+
+				google.maps.event.addListener(centerMarker, 'click', function() {
+					infoWindow.open(map, centerMarker);					
+				});
+
 				var pubMarker = new google.maps.Marker({
 					icon: image,
 					position: new google.maps.LatLng(52.343866, -3.0492420),
