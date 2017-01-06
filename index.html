@@ -6,6 +6,17 @@
 			html { height: 100% }
 			body { height: 100%; margin: 0; padding: 0; }
 			#mapDiv {height: 100%}
+			#coordsDiv {
+				position: absolute;
+				background-color: white;
+				border: 1px solid black;
+				bottom: 50px;
+				right: 50px;
+				height: 50px;
+				width: 380px;
+				padding-top: 5px;
+				padding-left: 5px;
+			}
 		</style>
 		<!-- Access Google Maps API -->
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=KEY">
@@ -30,6 +41,7 @@
 
 				addButtons(map);
 
+
 				addGoToInitialExtent(map, initialCenter, initialZoom);
 
 				drawMarkers(map);
@@ -37,6 +49,9 @@
 				drawPolygon(map);
 				drawDraggableRectangle(map);
 				drawCircle(map);
+
+				addShowCoords(map);
+
 			}
 
 			function addButtons(map) {
@@ -161,7 +176,18 @@
 					});
 			}
 
+			function addShowCoords(map) {
+				google.maps.event.addListener(map, 'center_changed',
+					function() {
+					var newCenter = map.getCenter();
+					var zoom = map.getZoom();
+					document.getElementById('coordsDiv').innerHTML = "Center: " + newCenter.toString() + "<br>Zoom: " + zoom;
+
+				});
+			}
+
 			google.maps.event.addDomListener(window, "load", initialize);
+
 		</script>
 	</head>
 	<body>
@@ -170,5 +196,6 @@
 		<button id="btnSatellite">Satellite</button>
 		<button id="btnHybrid">Hybrid</button>
 		<div id="mapDiv"></div>
+		<div id="coordsDiv"></div>
 	</body>
 </html>
